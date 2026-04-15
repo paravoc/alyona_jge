@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>ОГЭ Информатика | Материалы и Решения</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f1f5f9;
+            color: #0f172a;
+            line-height: 1.5;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, #1e3c72, #2b4c7c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .sub {
+            color: #334155;
+            border-left: 4px solid #3b82f6;
+            padding-left: 1rem;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .card {
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        .card-header {
+            background: #f8fafc;
+            padding: 1.2rem 1.8rem;
+            border-bottom: 1px solid #e2e8f0;
+            font-weight: 700;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .card-header i {
+            font-size: 1.6rem;
+        }
+
+        .card-body {
+            padding: 1.8rem;
+        }
+
+        .code-block {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 1rem 1.5rem;
+            border-radius: 1rem;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .formula {
+            background: #eef2ff;
+            border-left: 5px solid #3b82f6;
+            padding: 1rem;
+            border-radius: 1rem;
+            font-family: monospace;
+            font-size: 1.1rem;
+            margin: 1rem 0;
+        }
+
+        .venn-demo {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+
+        .venn-svg {
+            background: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .step {
+            background: #f1f5f9;
+            padding: 0.8rem 1.2rem;
+            border-radius: 1rem;
+            margin: 0.8rem 0;
+        }
+
+        .badge {
+            background: #3b82f6;
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 2rem;
+            display: inline-block;
+            margin-right: 0.5rem;
+        }
+
+        .interactive-panel {
+            background: #fef9e3;
+            border-radius: 1rem;
+            padding: 1.2rem;
+        }
+
+        input, button {
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid #cbd5e1;
+            background: white;
+        }
+
+        button {
+            background: #2c3e66;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #1e2a4a;
+        }
+
+        .result {
+            background: #e6f0fa;
+            padding: 0.8rem;
+            border-radius: 1rem;
+            font-family: monospace;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            color: #475569;
+            font-size: 0.85rem;
+        }
+        hr {
+            margin: 1rem 0;
+        }
+        @media (max-width: 640px) {
+            .card-body {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>📘 Материалы для ОГЭ по информатике</h1>
+    <div class="sub">🔍 Разбор типовых заданий: адреса URL, круги Эйлера, системы счисления + Python-инструменты</div>
+
+    <!-- ЗАДАНИЕ 1: АДРЕС ФАЙЛА (URL) -->
+    <div class="card">
+        <div class="card-header">
+            🌐 Задание 1: Построение URL-адреса
+        </div>
+        <div class="card-body">
+            <p><strong>Условие:</strong> Доступ к файлу <code>com.xls</code> на сервере <code>tt.com</code> по протоколу <code>http</code>.<br>
+            Фрагменты адреса: А) com, Б) xls, В) com., Г) http, Д) tt., Е) /, Ж) :// <br>
+            Нужно восстановить последовательность.</p>
+            <div class="formula">
+                📌 Правильный порядок: <strong>Г → Ж → Д → Е → А → В → Б</strong> <br>
+                ⇨ <code>http://tt.com/com.xls</code> <br>
+                <span style="background:#d9f0ff;">Логика: протокол (http) → :// → сервер (tt.) → / → домен/файл (com) → . → расширение (xls)</span>
+            </div>
+            <div class="step">💡 <strong>Как строить запрос:</strong> Всегда начинаем с <b>протокола</b> (http, https) → <b>://</b> → <b>имя сервера</b> → <b>/</b> → <b>путь/файл</b>. В кодировке букв: ищем сначала "http", потом "://", потом имя сервера с точкой, потом слэш, потом имя файла и расширение.</div>
+            <div class="code-block">
+                // Пример: https://inf-oge.sdamgia.ru/test?id=29520084&nt=True&pub=False <br>
+                // Параметры после ? передают доп. данные: id, nt, pub
+            </div>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 2: КРУГИ ЭЙЛЕРА (2 множества) -->
+    <div class="card">
+        <div class="card-header">
+            🧩 Задание 2: Формула включений-исключений (2 круга)
+        </div>
+        <div class="card-body">
+            <p><b>Запросы:</b> пирожное | выпечка = 14200, пирожное = 9700, пирожное & выпечка = 5100. Найти: <b>выпечка</b></p>
+            <div class="formula">
+                🧮 |A ∪ B| = |A| + |B| – |A ∩ B|<br>
+                14200 = 9700 + |выпечка| – 5100 ⇒ |выпечка| = 14200 – 9700 + 5100 = <strong>9600</strong>
+            </div>
+            <div class="venn-demo">
+                <svg width="280" height="180" viewBox="0 0 280 180" class="venn-svg">
+                    <circle cx="100" cy="90" r="60" fill="#bae6fd" stroke="#0284c7" stroke-width="2" fill-opacity="0.5" />
+                    <circle cx="180" cy="90" r="60" fill="#fed7aa" stroke="#ea580c" stroke-width="2" fill-opacity="0.5" />
+                    <text x="70" y="80" font-size="12">Пирожное</text>
+                    <text x="190" y="80" font-size="12">Выпечка</text>
+                    <text x="130" y="85" font-size="12" fill="#0f172a">5100</text>
+                    <text x="40" y="115" fill="#075985">9700-5100</text>
+                    <text x="210" y="115" fill="#9a3412">? -5100</text>
+                </svg>
+                <div>
+                    <div class="step">✔️ m(выпечка) = 9600 тыс.</div>
+                    <div class="step">📐 Формула для двух кругов всегда: <br> <b>B = (A|B) - A + (A&B)</b></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 3: КРУГИ ЭЙЛЕРА (3 круга пересечения) -->
+    <div class="card">
+        <div class="card-header">
+            🔄 Задание 3: Три круга (полное пересечение)
+        </div>
+        <div class="card-body">
+            <p><b>Условие:</b> Математика & Информатика = 330, Математика & Физика = 270, Математика & (Информатика | Физика) = 520.<br>
+            Найти: <b>Математика & Информатика & Физика</b></p>
+            <div class="grid-2">
+                <div>
+                    <div class="step">🔵 N4+N5 = 330</div>
+                    <div class="step">🟠 N5+N6 = 270</div>
+                    <div class="step">🟣 N4+N5+N6 = 520</div>
+                    <div class="formula">Решаем: (330-N5) + N5 + (270-N5) = 520 → 600 - N5 = 520 → <strong>N5 = 80</strong></div>
+                    <div>✅ Ответ: <b>80 тыс.</b></div>
+                </div>
+                <svg width="260" height="180" viewBox="0 0 260 180">
+                    <circle cx="90" cy="90" r="55" fill="#bae6fd" stroke="#1e40af" fill-opacity="0.3" />
+                    <circle cx="150" cy="70" r="55" fill="#fee2e2" stroke="#b91c1c" fill-opacity="0.3" />
+                    <circle cx="150" cy="120" r="55" fill="#dcfce7" stroke="#15803d" fill-opacity="0.3" />
+                    <text x="30" y="50" font-size="9">Математика</text>
+                    <text x="190" y="40" font-size="9">Информатика</text>
+                    <text x="190" y="155" font-size="9">Физика</text>
+                    <text x="120" y="85" font-size="11" fill="#075985">N5=80</text>
+                </svg>
+            </div>
+            <p class="step">📌 <strong>Два способа построения:</strong> когда все три пересекаются (как выше) — решаем системой; когда цепочка (нет тройного пересечения) — используем упрощенные формулы.</p>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 4: ТРИ КРУГА (НЕТ ОБЩЕГО) + ОБЪЕДИНЕНИЕ -->
+    <div class="card">
+        <div class="card-header">
+            📊 Задание 4: Три круга (частичные пересечения, отсутствие тройного)
+        </div>
+        <div class="card-body">
+            <p><b>Условие:</b> Поле=38, Агроном=28, Индукция=40, Поле&Агроном=15, Индукция&Поле=10, Индукция&Агроном=0.<br>
+            Найти: <b>Индукция | Поле | Агроном</b></p>
+            <div class="formula">🧠 Решение по диаграмме: <br>
+            N2 (Поле∩Агроном) = 15, N2(Поле∩Индукция)=10, тройного пересечения нет → <br>
+            только Поле = 38 - (15+10) = 13, <br>
+            Агроном только = 28 - 15 = 13, <br>
+            Индукция только = 40 - 10 = 30, <br>
+            Сумма = 13(только Поле)+13(только Агроном)+30(только Индукция)+15+10 = <b>81</b>
+            </div>
+            <div class="result">✅ Ответ: <strong>81 тысяча страниц</strong></div>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 5: СИСТЕМЫ СЧИСЛЕНИЯ + PYTHON (86,99,105) -->
+    <div class="card">
+        <div class="card-header">
+            🔢 Задание 5: Сумма цифр в восьмеричной записи (Python-метод)
+        </div>
+        <div class="card-body">
+            <p><b>Условие:</b> Даны числа: 86₁₀, 99₁₀, 105₁₀. Найти число, сумма цифр которого в восьмеричной записи наименьшая. <br>
+            В ответе записать эту сумму цифр.</p>
+            <div class="grid-2">
+                <div>
+                    <div class="step">📌 <b>Ручной разбор:</b><br>
+                    86₁₀ → 8²=64, остаток 22, 8¹=8 → 2*8=16, остаток 6 → 86 = 1*64 + 2*8 + 6 = <b>126₈</b>, сумма цифр = 1+2+6 = 9<br>
+                    99₁₀ → 64+35, 35=4*8+3 → 99 = 1*64 + 4*8 + 3 = <b>143₈</b>, сумма=1+4+3=8<br>
+                    105₁₀ → 64+41, 41=5*8+1 → 105 = 1*64 + 5*8 + 1 = <b>151₈</b>, сумма=1+5+1=7<br>
+                    ✅ Минимальная сумма = <b>7</b> (у числа 105)
+                    </div>
+                </div>
+                <div class="interactive-panel">
+                    <p><b>🐍 Python-инструмент (bin, oct, hex, int)</b></p>
+                    <label>Введите десятичное число: </label>
+                    <input type="number" id="decNum" value="105" step="1">
+                    <button id="calcOctBtn">Показать восьмеричную и сумму цифр</button>
+                    <div id="octResult" class="result" style="margin-top: 12px;">👉 Результат появится здесь</div>
+                    <div class="code-block" style="font-size: 0.75rem; margin-top: 12px;">
+                        # Команды Python:<br>
+                        num = 105<br>
+                        oct_num = oct(num)   # '0o151'<br>
+                        digits_sum = sum(int(d) for d in oct(num)[2:])<br>
+                        print(f"{num} в 8-ной = {oct_num}, сумма = {digits_sum}")
+                    </div>
+                </div>
+            </div>
+            <p class="step">💡 <b>Как решать:</b> переводим число в восьмеричную систему (делением на 8), складываем цифры, сравниваем. Либо используем <code>oct()</code> в Python.</p>
+        </div>
+    </div>
+
+    <!-- ДОПОЛНИТЕЛЬНЫЙ БЛОК: ВСЕ ФОРМУЛЫ И ПОДХОДЫ -->
+    <div class="card">
+        <div class="card-header">
+            📐 Обобщение: Формулы и приёмы для ОГЭ
+        </div>
+        <div class="card-body">
+            <div class="grid-2">
+                <div>
+                    <h3>🔹 Для двух множеств</h3>
+                    <div class="formula">|A ∪ B| = |A| + |B| – |A ∩ B|</div>
+                    <h3>🔹 Для трёх множеств (общий случай)</h3>
+                    <div class="formula">|A ∪ B ∪ C| = |A|+|B|+|C| – |A∩B| – |A∩C| – |B∩C| + |A∩B∩C|</div>
+                    <p>Если неизвестны отдельные пересечения, строим диаграмму и систему уравнений.</p>
+                </div>
+                <div>
+                    <h3>🔹 Построение URL</h3>
+                    <div>Порядок: <code>протокол :// сервер / путь/файл.расширение</code><br>
+                    Например: http://site.ru/docs/image.jpg</div>
+                    <h3>🔹 Сумма цифр в системе счисления</h3>
+                    <div>Перевод в любую систему (8, 2, 16): через деление или в Python — <code>oct(), bin(), hex()</code>. Затем сумма цифр строки.</div>
+                </div>
+            </div>
+            <hr>
+            <p><span class="badge">Совет</span> При решении заданий на круги Эйлера всегда выписывайте данные из таблицы и обозначайте области. Используйте метод подстановки.</p>
+        </div>
+    </div>
+
+    <!-- БОНУС: ИНТЕРАКТИВНЫЙ КАЛЬКУЛЯТОР ДЛЯ 2-Х МНОЖЕСТВ -->
+    <div class="card">
+        <div class="card-header">
+            🧪 Интерактивный тренажёр: формула включений-исключений (2 множества)
+        </div>
+        <div class="card-body">
+            <p>Проверьте себя: введите известные данные, и калькулятор найдёт недостающее множество.</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-end;">
+                <div><label>|A ∪ B| (ИЛИ):</label><br><input type="number" id="unionVal" value="14200"></div>
+                <div><label>|A| (первое):</label><br><input type="number" id="aVal" value="9700"></div>
+                <div><label>|A ∩ B| (И):</label><br><input type="number" id="intersectVal" value="5100"></div>
+                <div><label>Найти |B|:</label><br><button id="calcB">Рассчитать B</button></div>
+            </div>
+            <div id="bResult" class="result" style="margin-top: 1rem;">|B| = ?</div>
+            <div class="step">📌 Формула: |B| = |A ∪ B| - |A| + |A ∩ B|</div>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ ПРО ЦЕПОЧКИ И СИСТЕМЫ (демо трех кругов через интерактив) -->
+    <div class="card">
+        <div class="card-header">
+            🧮 Решатель для трёх кругов (система уравнений)
+        </div>
+        <div class="card-body">
+            <p>По типу задания: <b>Математика & Информатика = 330, Математика & Физика = 270, Математика & (Информатика | Физика) = 520</b><br>
+            Введите свои значения для тренировки:</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 10px;">
+                <div><label>N4+N5 (M&I):</label><input type="number" id="mAndI" value="330"></div>
+                <div><label>N5+N6 (M&F):</label><input type="number" id="mAndF" value="270"></div>
+                <div><label>N4+N5+N6 (M&(I|F)):</label><input type="number" id="mAndIorF" value="520"></div>
+            </div>
+            <button id="calcTriple" style="margin-top: 10px;">Найти N5 (M&I&F)</button>
+            <div id="tripleResult" class="result" style="margin-top: 12px;">Пересечение всех трёх = ?</div>
+            <div class="step">⚙️ Решение: N5 = N4+N5+N6 - (N4+N5) - (N5+N6) + N5 = (M&(I|F)) - (M&I) - (M&F) + N5? Нет, система: <br>
+            Пусть x = N5. Тогда (M&I) - x + x + (M&F) - x = M&(I|F) → (M&I)+(M&F)-x = M&(I|F) → x = (M&I)+(M&F)-M&(I|F).</div>
+        </div>
+    </div>
+</div>
+<footer>
+    📚 Материалы для подготовки к ОГЭ по информатике. Все формулы и приёмы основаны на демоверсиях и открытом банке заданий.
+    Используйте Python (bin, oct, hex) для проверки решений систем счисления.
+</footer>
+
+<script>
+    // Задание 5: Интерактивный перевод в восьмеричную систему
+    const decInput = document.getElementById('decNum');
+    const octBtn = document.getElementById('calcOctBtn');
+    const octRes = document.getElementById('octResult');
+    function updateOctal() {
+        let val = parseInt(decInput.value, 10);
+        if (isNaN(val)) val = 0;
+        let octStr = val.toString(8);
+        let digitSum = octStr.split('').reduce((acc, d) => acc + parseInt(d, 10), 0);
+        octRes.innerHTML = `🔢 Число ${val} в восьмеричной: <b>${octStr}₈</b> &nbsp;|&nbsp; Сумма цифр: <b style="font-size:1.2rem;">${digitSum}</b>`;
+    }
+    octBtn.addEventListener('click', updateOctal);
+    updateOctal();
+
+    // Калькулятор для двух множеств
+    const unionInput = document.getElementById('unionVal');
+    const aInput = document.getElementById('aVal');
+    const interInput = document.getElementById('intersectVal');
+    const calcBBtn = document.getElementById('calcB');
+    const bResDiv = document.getElementById('bResult');
+    function calcB() {
+        let union = parseFloat(unionInput.value);
+        let a = parseFloat(aInput.value);
+        let inter = parseFloat(interInput.value);
+        if (isNaN(union) || isNaN(a) || isNaN(inter)) {
+            bResDiv.innerText = '❌ Введите корректные числа';
+            return;
+        }
+        let b = union - a + inter;
+        bResDiv.innerHTML = `📌 |B| (например, "выпечка") = <strong>${b}</strong> (тыс.) <br> Формула: |B| = |A∪B| - |A| + |A∩B| = ${union} - ${a} + ${inter} = ${b}`;
+    }
+    calcBBtn.addEventListener('click', calcB);
+    calcB();
+
+    // Решатель для трёх кругов (система N5)
+    const mAndIEl = document.getElementById('mAndI');
+    const mAndFEl = document.getElementById('mAndF');
+    const mAndIorFEl = document.getElementById('mAndIorF');
+    const calcTripleBtn = document.getElementById('calcTriple');
+    const tripleRes = document.getElementById('tripleResult');
+    function solveTriple() {
+        let mI = parseFloat(mAndIEl.value);
+        let mF = parseFloat(mAndFEl.value);
+        let mIorF = parseFloat(mAndIorFEl.value);
+        if (isNaN(mI) || isNaN(mF) || isNaN(mIorF)) {
+            tripleRes.innerText = '⚠️ Введите числа';
+            return;
+        }
+        // По теории: N5 = (M&I) + (M&F) - M&(I|F)
+        let n5 = mI + mF - mIorF;
+        tripleRes.innerHTML = `🔍 Пересечение всех трёх (Математика & Информатика & Физика) = <strong>${n5}</strong> тыс.<br>
+        📐 Использована формула: N5 = (M&I) + (M&F) - (M&(I|F)) = ${mI} + ${mF} - ${mIorF} = ${n5}`;
+    }
+    calcTripleBtn.addEventListener('click', solveTriple);
+    solveTriple();
+
+    // Дополнительная демонстрация "как строится запрос URL" уже есть в первом блоке
+    // Также показываем, что можно передавать параметры в URL (пример)
+    console.log("Сайт с материалами ОГЭ загружен | Формулы, круги, Python-методы");
+</script>
+</body>
+</html>

@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Алёна • Информатика</title>
+  <style>
+    :root {
+      --bg-1: #0b1020;
+      --bg-2: #161b2f;
+      --bg-3: #1d2140;
+      --panel: rgba(19, 24, 42, 0.74);
+      --panel-strong: rgba(23, 28, 50, 0.92);
+      --text: #eef2ff;
+      --muted: #aab4d6;
+      --line: rgba(170, 190, 255, 0.14);
+      --accent: #8f7cff;
+      --accent-soft: rgba(143, 124, 255, 0.18);
+      --accent-2: #67d6ff;
+      --shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
+      --radius-xl: 34px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: Inter, "Segoe UI", system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(103,214,255,0.14), transparent 26%),
+        radial-gradient(circle at top right, rgba(143,124,255,0.15), transparent 28%),
+        linear-gradient(160deg, var(--bg-1) 0%, var(--bg-2) 52%, var(--bg-3) 100%);
+      padding: 22px;
+    }
+
+    .page {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(145deg, rgba(23, 28, 50, 0.95), rgba(26, 33, 59, 0.82));
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      padding: 32px;
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+      backdrop-filter: blur(14px);
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      pointer-events: none;
+      filter: blur(10px);
+    }
+
+    .hero::before {
+      width: 260px;
+      height: 260px;
+      right: -80px;
+      bottom: -90px;
+      background: radial-gradient(circle, rgba(143,124,255,0.28), transparent 66%);
+    }
+
+    .hero::after {
+      width: 240px;
+      height: 240px;
+      left: -70px;
+      top: -90px;
+      background: radial-gradient(circle, rgba(103,214,255,0.18), transparent 62%);
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .brand-wrap { max-width: 780px; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #d8def8;
+      font-size: 0.86rem;
+      margin-bottom: 16px;
+      letter-spacing: 0.02em;
+    }
+
+    h1 {
+      font-size: clamp(2.25rem, 4.4vw, 4rem);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff 0%, #dcd6ff 44%, #bdeeff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 760px;
+      line-height: 1.65;
+    }
+
+    .hero-aside {
+      min-width: 240px;
+      flex: 1 1 240px;
+      max-width: 320px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .meta-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 18px;
+      backdrop-filter: blur(12px);
+    }
+
+    .meta-title {
+      font-size: 0.86rem;
+      color: #d7defc;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+
+    .meta-list {
+      display: grid;
+      gap: 10px;
+      color: #ecf1ff;
+      font-size: 0.98rem;
+    }
+
+    .meta-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding-bottom: 8px;
+    }
+
+    .meta-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .quick-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 18px 0 22px;
+    }
+
+    .quick-nav a {
+      color: #e8edff;
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.92rem;
+      transition: 0.18s ease;
+    }
+
+    .quick-nav a:hover {
+      transform: translateY(-1px);
+      background: linear-gradient(135deg, rgba(143,124,255,0.22), rgba(103,214,255,0.16));
+      border-color: rgba(255,255,255,0.18);
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin: 20px 0 26px;
+    }
+
+    .summary-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 18px;
+      box-shadow: 0 18px 36px rgba(0,0,0,0.18);
+      backdrop-filter: blur(10px);
+    }
+
+    .summary-kicker {
+      color: var(--muted);
+      font-size: 0.86rem;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .summary-value {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #f5f7ff;
+      letter-spacing: -0.02em;
+    }
+
+    .section {
+      margin-top: 24px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+      padding: 0 2px;
+    }
+
+    .section-title {
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: #f7f8ff;
+    }
+
+    .section-note {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      position: relative;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 22px;
+      box-shadow: 0 18px 36px rgba(0,0,0,0.20);
+      backdrop-filter: blur(10px);
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      min-height: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(170,190,255,0.26);
+      box-shadow: 0 24px 46px rgba(0,0,0,0.26);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(143,124,255,0.22);
+      color: #ddd6ff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+
+    .card h2 {
+      font-size: 1.38rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.18;
+      color: #f5f7ff;
+      margin-top: 3px;
+    }
+
+    .card p {
+      color: #d5def7;
+      line-height: 1.62;
+      font-size: 0.98rem;
+      margin-bottom: 14px;
+    }
+
+    .file-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .file-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      color: #f2f5ff;
+      text-decoration: none;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.07);
+      transition: 0.18s ease;
+    }
+
+    .file-link:hover {
+      transform: translateX(2px);
+      background: linear-gradient(135deg, rgba(143,124,255,0.20), rgba(103,214,255,0.12));
+      border-color: rgba(170,190,255,0.22);
+    }
+
+    .file-name {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .file-title {
+      font-size: 0.97rem;
+      font-weight: 600;
+      color: #f8f9ff;
+    }
+
+    .file-sub {
+      font-size: 0.82rem;
+      color: #b8c3e6;
+    }
+
+    .arrow {
+      color: #dfe6ff;
+      font-size: 1.05rem;
+      flex: 0 0 auto;
+    }
+
+    .footer {
+      color: #8f9ac0;
+      font-size: 0.9rem;
+      text-align: center;
+      padding: 26px 0 10px;
+    }
+
+    @media (max-width: 960px) {
+      .summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 700px) {
+      body { padding: 14px; }
+      .hero { padding: 22px; border-radius: 26px; }
+      .summary { grid-template-columns: 1fr; }
+      .card { border-radius: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div class="hero-top">
+        <div class="brand-wrap">
+          <div class="eyebrow">Собранный index для одной папки</div>
+          <h1>Алёна • Информатика</h1>
+          <p class="subtitle">Личный стартовый экран с аккуратной навигацией по материалам. Без лишних лозунгов, с чистой типографикой и прямыми ссылками на файлы, которые лежат рядом с этим index.html.</p>
+          <nav class="quick-nav" aria-label="Быстрые разделы">
+            <a href="#base">База</a>
+            <a href="#oge">ОГЭ</a>
+            <a href="#practice">Практика</a>
+          </nav>
+        </div>
+
+        <aside class="hero-aside">
+          <div class="meta-card">
+            <div class="meta-title">Состав папки</div>
+            <div class="meta-list">
+              <div class="meta-item"><span>HTML-файлы</span><strong>3</strong></div>
+              <div class="meta-item"><span>Таблица</span><strong>1</strong></div>
+              <div class="meta-item"><span>Формат</span><strong>одна папка</strong></div>
+              <div class="meta-item"><span>Стиль</span><strong>тёмный</strong></div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </header>
+
+    <section class="summary">
+      <div class="summary-card">
+        <div class="summary-kicker">Теория</div>
+        <div class="summary-value">Компьютерная грамотность</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-kicker">Практика</div>
+        <div class="summary-value">Задание 16</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-kicker">Материалы</div>
+        <div class="summary-value">ОГЭ по информатике</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-kicker">Таблица</div>
+        <div class="summary-value">task14.ods</div>
+      </div>
+    </section>
+
+    <section class="section" id="base">
+      <div class="section-head">
+        <div class="section-title">База</div>
+        <div class="section-note">Файлы, с которых удобно начинать</div>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <div class="card-top">
+            <span class="badge">Теория</span>
+          </div>
+          <h2>Компьютерная грамотность</h2>
+          <p>Базовые понятия по устройству компьютера, сети, форматам и цифровой среде. Удобная точка входа перед более прикладочными темами.</p>
+          <div class="file-list">
+            <a class="file-link" href="комп грамотность.html">
+              <span class="file-name">
+                <span class="file-title">комп грамотность.html</span>
+                <span class="file-sub">Открыть материал</span>
+              </span>
+              <span class="arrow">↗</span>
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="oge">
+      <div class="section-head">
+        <div class="section-title">ОГЭ</div>
+        <div class="section-note">Главные материалы по подготовке</div>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <div class="card-top">
+            <span class="badge">ОГЭ</span>
+          </div>
+          <h2>Материалы ОГЭ</h2>
+          <p>Подборка теории и решений по ключевым темам. Подходит для общего повторения и для быстрого доступа к готовым разборам.</p>
+          <div class="file-list">
+            <a class="file-link" href="материалы огэ.html">
+              <span class="file-name">
+                <span class="file-title">материалы огэ.html</span>
+                <span class="file-sub">Открыть основной материал</span>
+              </span>
+              <span class="arrow">↗</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-top">
+            <span class="badge">Практика</span>
+          </div>
+          <h2>Задание 16</h2>
+          <p>Отдельный материал по заданию 16 с программированием и разбором типовых шаблонов решения. Удобно держать отдельно для точечной тренировки.</p>
+          <div class="file-list">
+            <a class="file-link" href="16 задание.html">
+              <span class="file-name">
+                <span class="file-title">16 задание.html</span>
+                <span class="file-sub">Открыть задание 16</span>
+              </span>
+              <span class="arrow">↗</span>
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="practice">
+      <div class="section-head">
+        <div class="section-title">Дополнительно</div>
+        <div class="section-note">Файлы, которые тоже лежат рядом с index.html</div>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <div class="card-top">
+            <span class="badge">Таблица</span>
+          </div>
+          <h2>task14.ods</h2>
+          <p>Файл таблицы для задания 14. Если открывать папку локально, ссылка будет вести на сам ODS-файл. Подходит как рабочее дополнение к HTML-материалам.</p>
+          <div class="file-list">
+            <a class="file-link" href="task14.ods">
+		
+              <span class="file-name">
+                <span class="file-title">task14.ods</span>
+                <span class="file-sub">Открыть таблицу</span>
+              </span>
+              <span class="arrow">↗</span>
+            </a>
+
+<a class="file-link" href="alena_excel_separate.html">
+		
+              <span class="file-name">
+                <span class="file-title">Excel — подробный конспект</span>
+                <span class="file-sub">Открыть</span>
+              </span>
+              <span class="arrow">↗</span>
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      Этот index.html рассчитан на то, что он лежит в одной папке с файлами Алёны.
+    </footer>
+  </div>
+</body>
+</html>

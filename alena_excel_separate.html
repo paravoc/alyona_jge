@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Алёна • Excel</title>
+  <style>
+    :root {
+      --bg-1: #0b1020;
+      --bg-2: #141b31;
+      --panel: rgba(18, 26, 46, 0.86);
+      --panel-soft: rgba(255,255,255,0.04);
+      --panel-strong: rgba(14, 20, 36, 0.96);
+      --text: #eef3ff;
+      --muted: #9eabc8;
+      --line: rgba(148, 163, 184, 0.16);
+      --accent: #9dc0ff;
+      --accent-2: #b7a9ff;
+      --good: #a9e7c2;
+      --warn: #ffd8a6;
+      --shadow: 0 24px 60px rgba(0,0,0,0.35);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, "Segoe UI", system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(157,192,255,0.14), transparent 24%),
+        radial-gradient(circle at top right, rgba(183,169,255,0.12), transparent 22%),
+        linear-gradient(160deg, var(--bg-1), var(--bg-2));
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .page {
+      max-width: 1360px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(15,21,38,0.97), rgba(20,31,55,0.9));
+      border: 1px solid var(--line);
+      border-radius: 34px;
+      box-shadow: var(--shadow);
+      padding: 30px;
+      margin-bottom: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -50px;
+      bottom: -50px;
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(157,192,255,0.16), transparent 62%);
+      pointer-events: none;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      background: linear-gradient(135deg, #ffffff, #d5e4ff 55%, #ddd3ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+      z-index: 1;
+    }
+
+    .subtitle {
+      margin: 0;
+      max-width: 860px;
+      color: var(--muted);
+      line-height: 1.65;
+      position: relative;
+      z-index: 1;
+      font-size: 1rem;
+    }
+
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #dce6ff;
+      font-size: 0.92rem;
+    }
+
+    .toc {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .toc a {
+      display: block;
+      text-decoration: none;
+      color: #f6f9ff;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.07);
+      transition: .18s ease;
+    }
+
+    .toc a:hover {
+      background: rgba(157,192,255,0.12);
+      border-color: rgba(157,192,255,0.25);
+      transform: translateY(-1px);
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: 0 16px 34px rgba(0,0,0,0.22);
+      padding: 24px;
+      backdrop-filter: blur(12px);
+    }
+
+    .card h2 {
+      margin: 0 0 14px;
+      font-size: 1.45rem;
+      letter-spacing: -0.02em;
+      color: #fbfcff;
+      scroll-margin-top: 24px;
+    }
+
+    .card h3 {
+      margin: 18px 0 10px;
+      font-size: 1.02rem;
+      color: #edf4ff;
+    }
+
+    .lead {
+      color: #d8e2f7;
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+
+    .list {
+      display: grid;
+      gap: 10px;
+      color: #d6e0f6;
+      line-height: 1.65;
+    }
+
+    .note, .tip, .warn {
+      padding: 14px 16px;
+      border-radius: 16px;
+      line-height: 1.65;
+      margin-top: 12px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .note { background: rgba(255,255,255,0.04); color: #dfe8fb; }
+    .tip { background: rgba(169,231,194,0.08); color: #e5fff0; }
+    .warn { background: rgba(255,216,166,0.08); color: #fff0d9; }
+
+    .formula {
+      border-radius: 18px;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.06);
+      color: #dce7ff;
+      font-family: "JetBrains Mono", "Fira Code", monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      overflow-x: auto;
+      margin: 12px 0 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    .mini-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 16px;
+    }
+
+    .mini-card b {
+      color: #fff;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.07);
+      margin-top: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 900px;
+      background: rgba(255,255,255,0.03);
+    }
+
+    th, td {
+      padding: 13px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      vertical-align: top;
+      text-align: left;
+      color: #d9e4fa;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    th {
+      background: rgba(255,255,255,0.04);
+      color: #fff;
+      font-size: 0.86rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    code {
+      font-family: "JetBrains Mono", "Fira Code", monospace;
+      color: #fff;
+      background: rgba(255,255,255,0.06);
+      padding: 2px 7px;
+      border-radius: 8px;
+    }
+
+    .footer {
+      color: #8ea0c2;
+      text-align: center;
+      margin-top: 26px;
+      padding-bottom: 18px;
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 760px) {
+      body { padding: 14px; }
+      .hero, .card { border-radius: 24px; }
+      .hero { padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <h1>Excel</h1>
+      <p class="subtitle">Подробный отдельный конспект по формулам, условиям, логике, арифметике ячеек и типовым шаблонам решения заданий. Все примеры написаны так, чтобы их можно было сразу использовать в таблице.</p>
+      <div class="hero-pills">
+        <div class="pill">Отдельный HTML</div>
+        <div class="pill">Подробно</div>
+        <div class="pill">Формулы и примеры</div>
+      </div>
+    </header>
+
+    <nav class="toc">
+      <a href="#base">Основа и ссылки</a>
+      <a href="#arith">Арифметика ячеек</a>
+      <a href="#simple">Простые функции</a>
+      <a href="#conditions">Функции с условиями</a>
+      <a href="#logic">ЕСЛИ, И, ИЛИ</a>
+      <a href="#quotes">Кавычки в условиях</a>
+      <a href="#examples">Типовые примеры</a>
+      <a href="#mistakes">Частые ошибки</a>
+    </nav>
+
+    <section class="grid">
+      <article class="card" id="base">
+        <h2>Основа: ячейки, диапазоны, ссылки</h2>
+        <p class="lead">В Excel формула всегда начинается со знака <code>=</code>. Ячейка обозначается буквой столбца и номером строки: <code>A1</code>, <code>B7</code>, <code>D12</code>. Диапазон записывается через двоеточие: <code>A1:A10</code>.</p>
+
+        <div class="mini-grid">
+          <div class="mini-card"><b>Одна ячейка</b><br><code>A1</code> — одно значение.</div>
+          <div class="mini-card"><b>Диапазон</b><br><code>B2:B20</code> — все ячейки от B2 до B20.</div>
+          <div class="mini-card"><b>Прямоугольник</b><br><code>A2:D10</code> — блок из нескольких столбцов и строк.</div>
+          <div class="mini-card"><b>Абсолютная ссылка</b><br><code>$A$1</code> — не меняется при копировании.</div>
+        </div>
+
+        <div class="note">Если формулу протягивают вниз или вправо, обычные ссылки меняются автоматически. Это удобно для массовых вычислений.</div>
+      </article>
+
+      <article class="card" id="arith">
+        <h2>Арифметика ячеек</h2>
+        <p class="lead">Самая база — это действия над числами в ячейках. Такие формулы часто встречаются как сами по себе, так и внутри более сложных условий.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Действие</th>
+                <th>Формула</th>
+                <th>Что делает</th>
+                <th>Пример</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Сложение</td>
+                <td><code>=A1+B1</code></td>
+                <td>Складывает два значения.</td>
+                <td>Если в A1 стоит 5, а в B1 стоит 7, получится 12.</td>
+              </tr>
+              <tr>
+                <td>Вычитание</td>
+                <td><code>=C2-D2</code></td>
+                <td>Из одного значения вычитает другое.</td>
+                <td>Можно найти разницу между планом и фактом.</td>
+              </tr>
+              <tr>
+                <td>Умножение</td>
+                <td><code>=E3*F3</code></td>
+                <td>Перемножает значения.</td>
+                <td>Цена × количество.</td>
+              </tr>
+              <tr>
+                <td>Деление</td>
+                <td><code>=G4/H4</code></td>
+                <td>Делит одно значение на другое.</td>
+                <td>Общая сумма / число человек.</td>
+              </tr>
+              <tr>
+                <td>Скобки</td>
+                <td><code>=(A1+B1)/2</code></td>
+                <td>Сначала считает сумму, потом делит на 2.</td>
+                <td>Среднее из двух значений.</td>
+              </tr>
+              <tr>
+                <td>Процент</td>
+                <td><code>=A1*10%</code></td>
+                <td>Берёт 10% от числа.</td>
+                <td>Если в A1 стоит 500, результат 50.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="formula">Частые полезные формулы:
+=A2+B2
+=(A2+B2+C2)/3
+=A2*5%
+=A2*(1+10%)
+=A2-B2
+=A2/B2</div>
+      </article>
+
+      <article class="card" id="simple">
+        <h2>Простые функции Excel</h2>
+        <p class="lead">Эти функции нужны почти в каждом задании. Их обычно используют для суммы, среднего, минимума, максимума и подсчёта количества элементов.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Функция</th>
+                <th>Формула</th>
+                <th>Что делает</th>
+                <th>Когда применять</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>СУММ</b></td>
+                <td><code>=СУММ(A2:A20)</code></td>
+                <td>Складывает все числа в диапазоне.</td>
+                <td>Посчитать общий результат.</td>
+              </tr>
+              <tr>
+                <td><b>СРЗНАЧ</b></td>
+                <td><code>=СРЗНАЧ(B2:B20)</code></td>
+                <td>Находит среднее арифметическое.</td>
+                <td>Средний балл, средняя температура, средняя цена.</td>
+              </tr>
+              <tr>
+                <td><b>МИН</b></td>
+                <td><code>=МИН(C2:C20)</code></td>
+                <td>Находит наименьшее значение.</td>
+                <td>Минимальный результат, самая маленькая цена.</td>
+              </tr>
+              <tr>
+                <td><b>МАКС</b></td>
+                <td><code>=МАКС(C2:C20)</code></td>
+                <td>Находит наибольшее значение.</td>
+                <td>Максимальный результат, самая высокая цена.</td>
+              </tr>
+              <tr>
+                <td><b>СЧЁТ</b></td>
+                <td><code>=СЧЁТ(D2:D20)</code></td>
+                <td>Считает только числовые ячейки.</td>
+                <td>Узнать, сколько чисел введено.</td>
+              </tr>
+              <tr>
+                <td><b>СЧЁТЗ</b></td>
+                <td><code>=СЧЁТЗ(D2:D20)</code></td>
+                <td>Считает непустые ячейки.</td>
+                <td>Узнать, сколько строк заполнено.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="tip">Если задача просит «сумму», почти всегда нужен <code>СУММ</code>. Если просит «среднее», нужен <code>СРЗНАЧ</code>. Если просит «количество чисел», нужен <code>СЧЁТ</code> или <code>СЧЁТЕСЛИ</code> — зависит от условия.</div>
+      </article>
+
+      <article class="card" id="conditions">
+        <h2>Функции с условиями: очень подробно</h2>
+        <p class="lead">Самые важные функции для задач по Excel — это функции, которые проверяют условие. В них особенно важно правильно писать диапазон, условие и, если нужно, диапазон суммы или среднего.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Функция</th>
+                <th>Шаблон</th>
+                <th>Что означает</th>
+                <th>Подробный пример</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>СЧЁТЕСЛИ</b></td>
+                <td><code>=СЧЁТЕСЛИ(диапазон;"условие")</code></td>
+                <td>Считает, сколько ячеек удовлетворяют одному условию.</td>
+                <td><code>=СЧЁТЕСЛИ(A2:A20;">=50")</code> — считает, сколько чисел в A2:A20 не меньше 50. Условие <code>">=50"</code> обязательно пишется в кавычках.</td>
+              </tr>
+              <tr>
+                <td><b>СУММЕСЛИ</b></td>
+                <td><code>=СУММЕСЛИ(диапазон_условия;"условие";диапазон_суммы)</code></td>
+                <td>Суммирует значения по строкам, где условие выполняется.</td>
+                <td><code>=СУММЕСЛИ(B2:B20;">=100";C2:C20)</code> — смотрим на B2:B20, если там число не меньше 100, берём соответствующее значение из C2:C20 и складываем.</td>
+              </tr>
+              <tr>
+                <td><b>СРЗНАЧЕСЛИ</b></td>
+                <td><code>=СРЗНАЧЕСЛИ(диапазон_условия;"условие";диапазон_среднего)</code></td>
+                <td>Считает среднее только по тем строкам, где условие выполняется.</td>
+                <td><code>=СРЗНАЧЕСЛИ(A2:A20;"=9";D2:D20)</code> — находит среднее по D2:D20 только там, где в A2:A20 стоит <code>"9"</code>.</td>
+              </tr>
+              <tr>
+                <td><b>СЧЁТЕСЛИМН</b></td>
+                <td><code>=СЧЁТЕСЛИМН(диапазон1;"условие1";диапазон2;"условие2")</code></td>
+                <td>Считает по нескольким условиям сразу.</td>
+                <td><code>=СЧЁТЕСЛИМН(A2:A20;">=50";B2:B20;"<100")</code> — считает строки, где A не меньше 50 и одновременно B меньше 100.</td>
+              </tr>
+              <tr>
+                <td><b>СУММЕСЛИМН</b></td>
+                <td><code>=СУММЕСЛИМН(диапазон_суммы;диапазон1;"условие1";диапазон2;"условие2")</code></td>
+                <td>Суммирует по нескольким условиям.</td>
+                <td><code>=СУММЕСЛИМН(C2:C20;A2:A20;">=50";B2:B20;"=Москва")</code> — суммирует C только для строк, где A не меньше 50 и B равно <code>"Москва"</code>.</td>
+              </tr>
+              <tr>
+                <td><b>СРЗНАЧЕСЛИМН</b></td>
+                <td><code>=СРЗНАЧЕСЛИМН(диапазон_среднего;диапазон1;"условие1";диапазон2;"условие2")</code></td>
+                <td>Считает среднее по нескольким условиям.</td>
+                <td><code>=СРЗНАЧЕСЛИМН(D2:D20;A2:A20;">=60";B2:B20;"=Да")</code> — среднее из D только там, где A не меньше 60 и в B написано <code>"Да"</code>.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="formula">Ключевая схема:
+1) где проверяем условие
+2) какое условие проверяем
+3) что суммируем или усредняем
+
+Пример:
+=СУММЕСЛИ(A2:A20;">=10";B2:B20)
+
+Это значит:
+если в A число не меньше 10,
+то берём соответствующее значение из B и включаем в сумму.</div>
+
+        <div class="warn">Если в условии есть знак сравнения или текст, его нужно писать в кавычках: <code>">10"</code>, <code>"<=25"</code>, <code>"=Да"</code>, <code>"Москва"</code>.</div>
+      </article>
+
+      <article class="card" id="logic">
+        <h2>ЕСЛИ, И, ИЛИ</h2>
+        <p class="lead">Эти функции нужны, когда нужно не просто посчитать или сложить, а выдать результат в зависимости от условия.</p>
+
+        <h3>ЕСЛИ</h3>
+        <div class="formula">=ЕСЛИ(условие; что_если_истина; что_если_ложь)</div>
+        <div class="list">
+          <div><code>=ЕСЛИ(A2>=70;"Зачёт";"Незачёт")</code> — если в A2 число не меньше 70, будет <code>"Зачёт"</code>, иначе <code>"Незачёт"</code>.</div>
+          <div><code>=ЕСЛИ(B2="Да";1;0)</code> — если в B2 написано <code>"Да"</code>, ставим 1, иначе 0.</div>
+        </div>
+
+        <h3>И</h3>
+        <div class="formula">=И(условие1; условие2; условие3)</div>
+        <div class="list">
+          <div><code>=И(A2>=50;B2>=50)</code> — истина только если оба условия выполняются одновременно.</div>
+          <div><code>=ЕСЛИ(И(A2>=50;B2>=50);"Прошёл";"Нет")</code> — решение для двух обязательных условий.</div>
+        </div>
+
+        <h3>ИЛИ</h3>
+        <div class="formula">=ИЛИ(условие1; условие2; условие3)</div>
+        <div class="list">
+          <div><code>=ИЛИ(C2="Москва";C2="Тула")</code> — истина, если в C2 либо <code>"Москва"</code>, либо <code>"Тула"</code>.</div>
+          <div><code>=ЕСЛИ(ИЛИ(D2<10;D2>100);"Проверить";"Норма")</code> — если значение слишком маленькое или слишком большое.</div>
+        </div>
+
+        <h3>Вложенный ЕСЛИ</h3>
+        <div class="formula">=ЕСЛИ(A2>=85;"5";ЕСЛИ(A2>=70;"4";ЕСЛИ(A2>=50;"3";"2")))</div>
+        <div class="note">Такую форму удобно использовать, когда по диапазонам нужно выдать оценку, категорию или статус.</div>
+      </article>
+
+      <article class="card" id="quotes">
+        <h2>Когда нужны кавычки в Excel</h2>
+        <p class="lead">Это одна из самых частых ошибок. По условию задачи текст и знаки сравнения в формулах обычно нужно писать в кавычках.</p>
+
+        <div class="mini-grid">
+          <div class="mini-card"><b>Правильно</b><br><code>"Москва"</code><br><code>"Да"</code><br><code>">=50"</code><br><code>"<>0"</code></div>
+          <div class="mini-card"><b>Неправильно</b><br><code>Москва</code><br><code>Да</code><br><code>>=50</code><br><code><>0</code></div>
+          <div class="mini-card"><b>Если сравнение с ячейкой</b><br><code>">="&B1</code><br>Это значит: взять знак <code>">="</code> и присоединить значение из B1.</div>
+        </div>
+
+        <div class="formula">Примеры:
+=СЧЁТЕСЛИ(A2:A20;">=100")
+=СУММЕСЛИ(B2:B20;"=Да";C2:C20)
+=СЧЁТЕСЛИМН(A2:A20;">="&D1;B2:B20;"<="&E1)</div>
+      </article>
+
+      <article class="card" id="examples">
+        <h2>Типовые примеры решений</h2>
+
+        <h3>1. Посчитать, сколько учеников набрали не меньше 70 баллов</h3>
+        <div class="formula">=СЧЁТЕСЛИ(C2:C30;">=70")</div>
+        <div class="note">Смотрим столбец C, считаем все значения, которые не меньше 70.</div>
+
+        <h3>2. Найти сумму продаж только по городу Москва</h3>
+        <div class="formula">=СУММЕСЛИ(B2:B50;"Москва";D2:D50)</div>
+        <div class="note">В B ищем строки, где город равен <code>"Москва"</code>, из D суммируем соответствующие продажи.</div>
+
+        <h3>3. Найти средний балл только у тех, кто сдал</h3>
+        <div class="formula">=СРЗНАЧЕСЛИ(E2:E40;"=Да";C2:C40)</div>
+        <div class="note">Если в E стоит <code>"Да"</code>, то из C берём балл для среднего.</div>
+
+        <h3>4. Сколько строк, где балл не меньше 60 и город — Тула</h3>
+        <div class="formula">=СЧЁТЕСЛИМН(C2:C40;">=60";B2:B40;"=Тула")</div>
+        <div class="note">Оба условия должны выполняться одновременно.</div>
+
+        <h3>5. Сумма значений, где возраст больше 18 и ответ — Да</h3>
+        <div class="formula">=СУММЕСЛИМН(D2:D40;A2:A40;">18";E2:E40;"=Да")</div>
+        <div class="note">Из D складываем только те строки, где A больше 18 и E равно <code>"Да"</code>.</div>
+
+        <h3>6. Вывести зачёт или незачёт</h3>
+        <div class="formula">=ЕСЛИ(C2>=50;"Зачёт";"Незачёт")</div>
+        <div class="note">Это не подсчёт, а логический вывод текста по условию.</div>
+      </article>
+
+      <article class="card" id="mistakes">
+        <h2>Частые ошибки</h2>
+        <div class="list">
+          <div><b>1.</b> Забывают кавычки в условиях: нужно писать <code>">=50"</code>, а не <code>>=50</code>.</div>
+          <div><b>2.</b> Путают диапазон условия и диапазон суммы. В <code>СУММЕСЛИ</code> сначала идёт диапазон, где проверяется условие, а потом диапазон, откуда берутся числа для суммы.</div>
+          <div><b>3.</b> Используют <code>СЧЁТ</code> вместо <code>СЧЁТЕСЛИ</code>. Если есть условие, чаще всего нужен именно <code>СЧЁТЕСЛИ</code>.</div>
+          <div><b>4.</b> Не ставят знак <code>=</code> в начале формулы.</div>
+          <div><b>5.</b> Пишут текст без кавычек: правильно <code>"Да"</code>, <code>"Нет"</code>, <code>"Москва"</code>.</div>
+        </div>
+
+        <div class="tip">Если задача сформулирована словами «сколько», «сумма», «среднее», сначала определи, что требуется в ответе, а потом выбери функцию:
+<code>СЧЁТЕСЛИ</code> — сколько,
+<code>СУММЕСЛИ</code> — сумма,
+<code>СРЗНАЧЕСЛИ</code> — среднее.</div>
+      </article>
+    </section>
+
+    <footer class="footer">
+      Этот файл можно положить рядом с index.html и сделать на него обычную ссылку как на отдельный конспект по Excel.
+    </footer>
+  </div>
+</body>
+</html>

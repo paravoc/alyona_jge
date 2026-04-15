@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шпаргалка для Алёны · Тёмная тема</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #1e1e2f; /* глубокий тёмно-фиолетовый фон */
+            color: #eaeef2;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            background: rgba(30, 30, 46, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 36px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.05);
+            padding: 2.5rem 2rem;
+        }
+
+        /* Заголовок с градиентом — как у Apple */
+        h1 {
+            font-size: 3.2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            background: linear-gradient(145deg, #ffffff, #c0b7e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.25rem;
+            padding-left: 12px;
+        }
+
+        .subhead {
+            font-size: 1.2rem;
+            color: #a6a9c9;
+            margin-bottom: 2.5rem;
+            padding-left: 16px;
+            border-left: 4px solid #7f6ee6;
+            background: rgba(127, 110, 230, 0.1);
+            border-radius: 0 12px 12px 0;
+        }
+
+        /* сетка карточек */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .card {
+            background: rgba(44, 44, 62, 0.7);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 28px;
+            padding: 1.8rem 1.5rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        .card:hover {
+            border-color: #7f6ee680;
+            transform: translateY(-2px);
+            background: rgba(54, 54, 78, 0.8);
+            box-shadow: 0 18px 30px -10px #00000099;
+        }
+
+        .card h2 {
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin-bottom: 1.4rem;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.6rem;
+        }
+
+        .card h2 span {
+            background: #7f6ee6;
+            padding: 0.2rem 0.8rem;
+            border-radius: 100px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #fff;
+            letter-spacing: 0.3px;
+        }
+
+        .topic-block {
+            margin-bottom: 1.8rem;
+        }
+
+        .topic-block h3 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #bfb3ff;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .topic-block p {
+            color: #cdd2de;
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+        }
+
+        ul, ol {
+            padding-left: 1.8rem;
+            margin: 0.6rem 0 1rem;
+            color: #c2c7dc;
+        }
+
+        li {
+            margin: 0.4rem 0;
+        }
+
+        /* подсветка клавиш как на Mac */
+        kbd {
+            background: #2f2f44;
+            border-radius: 8px;
+            border: 1px solid #4c4c6e;
+            color: #f0eaff;
+            padding: 0.2rem 0.8rem;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 2px 0 #191928;
+            display: inline-block;
+            margin: 2px 4px 2px 0;
+        }
+
+        .key-group {
+            background: #252539;
+            border-radius: 18px;
+            padding: 1rem 1.2rem;
+            margin: 1rem 0;
+            border-left: 4px solid #7f6ee6;
+        }
+
+        .badge {
+            background: #43437a;
+            border-radius: 30px;
+            padding: 0.3rem 1rem;
+            font-size: 0.85rem;
+            color: #d3d3ff;
+            display: inline-block;
+            margin: 4px 0;
+        }
+
+        hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #7f6ee680, transparent);
+            margin: 1.8rem 0;
+        }
+
+        .inline-code {
+            background: #1e1e30;
+            border-radius: 12px;
+            padding: 0.2rem 0.7rem;
+            font-family: monospace;
+            color: #ffb86b;
+            border: 1px solid #3e3e5e;
+        }
+
+        /* Табличка для айпи */
+        .simple-table {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 8px 12px;
+            margin: 1rem 0;
+            background: #1f1f33;
+            border-radius: 20px;
+            padding: 1rem;
+        }
+
+        .simple-table .term {
+            font-weight: 600;
+            color: #c6b0ff;
+        }
+
+        .simple-table .desc {
+            color: #dbdff0;
+        }
+
+        /* цветные акценты */
+        .accent-1 {
+            color: #a88eff;
+        }
+        .accent-2 {
+            color: #8affb8;
+        }
+
+        /* для подписи */
+        .footer-note {
+            text-align: right;
+            margin-top: 2.5rem;
+            font-size: 0.95rem;
+            color: #6f6f97;
+            border-top: 1px dashed #3f3f60;
+            padding-top: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>✨ Алёна, это твой мак‑бук в миниатюре</h1>
+    <div class="subhead">торренты, IP, горячие клавиши, Python и магия термина</div>
+
+    <div class="grid">
+        <!-- левая колонка (фактически сетка сама всё расставит, но мы группируем по смыслу) -->
+
+        <!-- карточка 1: торренты -->
+        <div class="card">
+            <h2>📥 Торрент <span>для новичков</span></h2>
+            <div class="topic-block">
+                <h3>🧲 Что это?</h3>
+                <p>Торрент — это не файл, а <strong>способ обмена</strong> кусочками данных между людьми (P2P). Ты скачиваешь фильм не с одного сервера, а одновременно у сотни таких же, как ты.</p>
+            </div>
+            <div class="topic-block">
+                <h3>📊 Почему «ест» трафик?</h3>
+                <p>Пока ты скачиваешь — ты одновременно <strong>отдаёшь</strong> (раздаёшь) куски другим. Трафик летит в обе стороны. Провайдер видит нагрузку как загрузку + отдачу.</p>
+            </div>
+            <div class="topic-block">
+                <h3>💡 Зачем придумали?</h3>
+                <p>Чтобы разгрузить серверы. Чем больше людей качает — тем быстрее всем (в отличие от обычных серверов). Придумал Брэм Коэн в 2001 году, чтобы делиться файлами без перегрузок.</p>
+            </div>
+        </div>
+
+        <!-- карточка 2: горячие клавиши windows + powertoys -->
+        <div class="card">
+            <h2>⌨️ Hotkeys · Windows</h2>
+            <div class="key-group">
+                <p><kbd>Win</kbd> + <kbd>D</kbd> — свернуть/развернуть все окна (показать рабочий стол)</p>
+                <p><kbd>Win</kbd> + <kbd>C</kbd> — запуск Cortana (или слушать)</p>
+                <p><kbd>Win</kbd> + <kbd>V</kbd> — открыть буфер обмена (облачная история)</p>
+                <p><kbd>Shift</kbd> + <kbd>S</kbd> — фрагмент экрана (набросок)</p>
+                <p><kbd>Win</kbd> + <kbd>E</kbd> — проводник</p>
+                <p><kbd>Win</kbd> + <kbd>I</kbd> — настройки</p>
+                <p><kbd>Win</kbd> + <kbd>Q</kbd> — поиск</p>
+                <p><kbd>Win</kbd> + <kbd>←↑→↓</kbd> — прикрепить окно к краю</p>
+                <p><kbd>Win</kbd> + <kbd>+</kbd> / <kbd>-</kbd> — лупа (зум)</p>
+                <p><kbd>Space</kbd> (в браузере) — прокрутка вниз, <kbd>Shift</kbd>+<kbd>Space</kbd> — вверх</p>
+            </div>
+            <h2 style="margin-top: 1.2rem;">⚡ PowerToys (утилиты)</h2>
+            <div class="key-group">
+                <p><kbd>Alt</kbd> + <kbd>Space</kbd> — запуск PowerToys Run (быстрый запуск, как spotlight)</p>
+                <p><kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>T</kbd> — текст из изображения (PowerToys Text Extractor)</p>
+                <p><kbd>Ctrl</kbd> + <kbd>1</kbd> (и <kbd>2</kbd>, <kbd>3</kbd>) — переключение зон в FancyZones</p>
+                <p><span class="badge">🔒 Locksmith</span> — для файлов: <strong>правая кнопка → какой процесс использует файл</strong> (встроен в PowerToys)</p>
+            </div>
+        </div>
+
+        <!-- карточка 3: айпи адреса и маски -->
+        <div class="card">
+            <h2>🌐 IP-адреса & подсети</h2>
+            <div class="topic-block">
+                <h3>🧩 IP устройства / сети</h3>
+                <p><span class="inline-code">192.168.1.37</span> — это адрес твоего компа внутри сети. IP сети: <span class="inline-code">192.168.1.0</span> (адрес всей локальной сети).</p>
+                <div class="simple-table">
+                    <span class="term">IP-адрес</span>
+                    <span class="desc">уникальный номер устройства в сети (как индекс в доме)</span>
+                    <span class="term">Маска подсети</span>
+                    <span class="desc">отделяет, какая часть относится к сети, какая — к устройству. Например <span class="inline-code">255.255.255.0</span> означает: первые 3 цифры — сеть, последняя — хост.</span>
+                </div>
+            </div>
+            <div class="topic-block">
+                <h3>🔢 Что означают цифры?</h3>
+                <p>IPv4 — 32 бита, записывается четырьмя десятичными числами (0–255). Маска в двоичном виде — это единицы (сеть) и нули (хост). <span class="inline-code">/24</span> = 24 единицы, маска <span class="inline-code">255.255.255.0</span>.</p>
+            </div>
+            <div class="topic-block">
+                <h3>📟 Зачем IPv4 и IPv6?</h3>
+                <p><strong>IPv4</strong> закончились (около 4.3 млрд адресов). <strong>IPv6</strong> (например <span class="inline-code">2001:db8::1</span>) — адресов хватит на каждую песчинку. Нужен для роста интернета, умных лампочек, холодильников и т.д.</p>
+            </div>
+        </div>
+
+        <!-- карточка 4: текстовый редактор (навигация) -->
+        <div class="card">
+            <h2>📝 Редактор / навигация</h2>
+            <div class="key-group">
+                <p><kbd>Ctrl</kbd> + <kbd>→</kbd> / <kbd>←</kbd> — прыгать по словам (вместо буквы к букве)</p>
+                <p><kbd>Ctrl</kbd> + <kbd>Backspace</kbd> — удалить слово слева</p>
+                <p><kbd>Ctrl</kbd> + <kbd>Del</kbd> — удалить слово справа</p>
+                <p><kbd>Shift</kbd> + <kbd>→</kbd> / <kbd>←</kbd> — выделение по одной букве</p>
+                <p><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>→</kbd> / <kbd>←</kbd> — выделение целыми словами (быстро!)</p>
+                <p><kbd>Shift</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd> — выделение строками</p>
+                <p><kbd>Ctrl</kbd> + <kbd>A</kbd> — выделить всё</p>
+            </div>
+            <p style="margin-top: 0.8rem;">✨ В любом поле ввода (Word, блокнот, код) эти комбинации экономят часы.</p>
+        </div>
+
+        <!-- карточка 5: Python структуры данных (самое важное) -->
+        <div class="card">
+            <h2>🐍 Структуры Python</h2>
+            <ul style="list-style-type: none; padding-left: 0;">
+                <li><span class="inline-code">list</span> = [1, 2, 3] — упорядоченный, можно менять, индекс 0..n.</li>
+                <li><span class="inline-code">set</span> = {1, 2, 3} — неупорядоченный, только уникальные значения (быстрая проверка вхождения).</li>
+                <li><span class="inline-code">dict</span> = {'key': 'value'} — пары ключ-значение, хеш-таблица.</li>
+                <li><span class="inline-code">defaultdict</span> — из collections: словарь с значением по умолчанию (например список).</li>
+                <li><span class="inline-code">tuple</span> = (1, 2, 3) — как список, но неизменяемый (быстрее, может быть ключом dict).</li>
+                <li><span class="inline-code">class</span> — пользовательский тип: объединяет данные и методы. Чертеж для объектов.</li>
+            </ul>
+            <div style="background: #2a2a40; border-radius: 16px; padding: 0.8rem; margin-top: 1rem;">
+                <p><span class="accent-2">💡 Пример:</span> <span class="inline-code">from collections import defaultdict</span><br>
+                <span class="inline-code">d = defaultdict(list)</span> — автоматически создаёт пустой список для отсутствующего ключа.</p>
+            </div>
+        </div>
+
+        <!-- карточка 6: ещё немного про торренты (детали) и бонус -->
+        <div class="card">
+            <h2>🧩 Детали торрента</h2>
+            <p>⚙️ <strong>.torrent</strong> файл содержит хеши (отпечатки) кусков. Клиент (qBittorrent) сверяет их. Раздача — это когда у тебя скачано 100% и ты отдаёшь другим. Рейтинг = отношение отданного/скачанного.</p>
+            <p>🔄 Магнет-ссылки — то же самое, без файла, просто хеш.</p>
+            <hr>
+            <h3>💬 маленький лайфхак</h3>
+            <p>Если нужно быстро зашарить файл по сети — используй <strong>PowerToys + Locksmith</strong> (узнать, какая программа заняла файл) или <kbd>Win</kbd>+<kbd>Shift</kbd>+<kbd>T</kbd> чтобы выдернуть текст из фото.</p>
+        </div>
+    </div> <!-- конец grid -->
+
+    <!-- доп. секция с подробностями про IP, маски и цифры (очень хотелось развернуть) -->
+    <hr>
+    <div style="display: flex; flex-wrap: wrap; gap: 2rem; margin-top: 1rem;">
+        <div style="flex: 1; min-width: 280px;">
+            <h3 style="color: #b1a6ff;">🔬 Маска подсети — как это выглядит</h3>
+            <p><kbd>IP:</kbd> <span class="inline-code">192.168.1.145</span>   <kbd>маска:</kbd> <span class="inline-code">255.255.255.0</span></p>
+            <p>В двоичном виде: 255 = 11111111. Значит первые 24 бита (192.168.1) — это сеть, последние 8 бит — устройство (145). Маска определяет <strong>границу</strong>.</p>
+            <p>Если маска <span class="inline-code">255.255.254.0</span> — это уже 23 бита, тогда в сети может быть 512 адресов (вместо 256). Цифры маски говорят, сколько бит «зарезервировано под сеть».</p>
+        </div>
+        <div style="flex: 1; min-width: 280px;">
+            <h3 style="color: #b1a6ff;">🗂️ Tuple против List</h3>
+            <p><span class="inline-code">list</span>: изменяемый (можно добавить, удалить). Занимает чуть больше памяти, медленнее.</p>
+            <p><span class="inline-code">tuple</span>: неизменяемый (константа). Можно использовать как ключ в словаре. Быстрее работает.</p>
+            <p><span class="inline-code">set</span> не хранит порядок, но проверка <span class="inline-code">x in set</span> — почти мгновенно (O(1)).</p>
+            <p><span class="inline-code">defaultdict</span> очень удобен для подсчётов (частот) или группировки.</p>
+        </div>
+    </div>
+
+    <!-- финальный блок про Алёну -->
+    <div class="footer-note">
+        🌸 для Алёны · с нежностью и тёмной маковской эстетикой. <br> 
+        команды и факты проверены, но если что — гугл в помощь и эксперименты!
+    </div>
+</div> <!-- закрыт container -->
+</body>
+</html>

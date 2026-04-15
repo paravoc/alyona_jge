@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>ОГЭ Информатика | Теория и задачи с решением</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f6f9fc 0%, #eef2f7 100%);
+            font-family: 'Inter', sans-serif;
+            color: #1a2c3e;
+            line-height: 1.5;
+            padding: 2rem 1.5rem;
+        }
+
+        /* Контейнер с магией */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* ГЛАВНЫЙ ЗАГОЛОВОК */
+        .hero {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1E3C72, #2A5298, #00b4aa);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #2c5368;
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(2px);
+            border-radius: 60px;
+            padding: 0.5rem 1.5rem;
+            display: inline-block;
+        }
+
+        /* сетка карточек */
+        .tasks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+        }
+
+        /* карточка задачи — шикарный дизайн */
+        .task-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(0px);
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.02);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .task-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 28px 40px -16px rgba(0,0,0,0.2);
+            background: white;
+        }
+
+        .card-header {
+            padding: 1.5rem 1.8rem 0.8rem 1.8rem;
+            border-bottom: 2px solid #e9edf2;
+        }
+
+        .task-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(120deg, #1f4e6e, #148c7c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .task-theory {
+            font-size: 0.9rem;
+            color: #2c6e5c;
+            background: #e0f2f0;
+            display: inline-block;
+            padding: 0.2rem 0.9rem;
+            border-radius: 30px;
+            margin-top: 0.3rem;
+            font-weight: 500;
+        }
+
+        .task-desc {
+            padding: 1.2rem 1.8rem;
+            background: #fafcff;
+            border-bottom: 1px solid #eef2f8;
+            font-size: 0.95rem;
+            color: #1f3b4c;
+        }
+
+        .code-block {
+            background: #0f172a;
+            margin: 1rem 1.8rem;
+            border-radius: 20px;
+            padding: 1rem 1.2rem;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: #e2e8f0;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1), 0 5px 12px rgba(0,0,0,0.2);
+        }
+
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .output-area {
+            margin: 1rem 1.8rem 1.8rem 1.8rem;
+            background: #f0f4f9;
+            border-radius: 1.2rem;
+            padding: 1rem;
+            transition: 0.2s;
+        }
+
+        .output-label {
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #2c6e5c;
+            margin-bottom: 0.5rem;
+        }
+
+        .output-result {
+            background: white;
+            border-radius: 1rem;
+            padding: 0.7rem 1rem;
+            font-family: monospace;
+            font-weight: 500;
+            font-size: 1rem;
+            border: 1px solid #cfdfed;
+            word-break: break-word;
+            color: #0b2b38;
+        }
+
+        button {
+            background: linear-gradient(100deg, #1f6392, #148c7c);
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 0.6rem 1.5rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 0.8rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        button:hover {
+            transform: scale(0.97);
+            background: linear-gradient(100deg, #0e4a6e, #0e6b5e);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .input-sim {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 0.8rem 0;
+            align-items: center;
+        }
+
+        .input-sim input {
+            padding: 0.6rem 0.8rem;
+            border-radius: 50px;
+            border: 1px solid #cbdde9;
+            background: white;
+            font-family: monospace;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        hr {
+            margin: 1rem 0;
+            border: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #bdd4e4, transparent);
+        }
+
+        .flex-btns {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        @media (max-width: 750px) {
+            body { padding: 1rem; }
+            .tasks-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.2rem; }
+        }
+
+        footer {
+            margin-top: 4rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #5e7f8e;
+            border-top: 1px solid #cbdbe0;
+            padding-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>⚡ ОГЭ ИНФОРМАТИКА ⚡</h1>
+        <p>Теория + алгоритмы на списках | Готовые решения в стиле Python</p>
+        <p style="font-size:0.9rem; margin-top:0.7rem;">📌 Все задачи используют пустой список <code style="background:#e2eaf1; padding:2px 8px; border-radius:20px;">a = []</code> и встроенные функции: <strong>max, min, sum, len, filter</strong></p>
+    </div>
+
+    <div class="tasks-grid">
+        
+        <!-- ЗАДАЧА 1: Максимальное кратное 5 + сумма/среднее/количество -->
+        <div class="task-card">
+            <div class="card-header">
+                <span class="task-title">📊 Задача 1. Кратные 5</span>
+                <div class="task-theory">📘 Теория: кратность 5 → число % 5 == 0. Используем list comprehension для фильтрации.</div>
+            </div>
+            <div class="task-desc">
+                <strong>Условие:</strong> Найти <strong>максимальное</strong> число, кратное 5, также вычислить <strong>сумму, количество и среднее</strong> для всех кратных 5. Гарантируется хотя бы одно число кратное 5.
+            </div>
+            <div class="code-block">
+                <pre>a = []  # пустой список
+n = int(input("Кол-во чисел: "))
+for _ in range(n):
+    x = int(input())
+    if x % 5 == 0:
+        a.append(x)
+
+max_val = max(a)
+summa = sum(a)
+count = len(a)
+average = summa / count
+
+print(f"Максимум: {max_val} | Сумма: {summa} | Кол-во: {count} | Среднее: {average:.2f}")</pre>
+            </div>
+            <div class="output-area">
+                <div class="output-label">🔢 ИНТЕРАКТИВНЫЙ ТЕСТ (введите числа)</div>
+                <div class="input-sim">
+                    <input type="number" id="task1_count" placeholder="Количество чисел" value="6" style="width:100px;">
+                    <input type="text" id="task1_numbers" placeholder="Числа через пробел (напр. 10 15 7 20 33 5)" value="10 15 7 20 33 5" style="flex:2;">
+                </div>
+                <button id="runTask1Btn">▶ Вычислить (кратные 5)</button>
+                <div class="output-result" id="task1Result">Максимум: — | Сумма: — | Кол-во: — | Среднее: —</div>
+                <div class="output-result" style="margin-top: 8px; background:#eaf7f0;" id="task1Extra">📌 Также минимальное кратное 5: —</div>
+            </div>
+        </div>
+
+        <!-- ЗАДАЧА 2: оканчиваются на 3 (количество) -->
+        <div class="task-card">
+            <div class="card-header">
+                <span class="task-title">🔢 Задача 2. Оканчиваются на 3</span>
+                <div class="task-theory">📘 Теория: последняя цифра 3 → число % 10 == 3. Добавляем в список только подходящие.</div>
+            </div>
+            <div class="task-desc">
+                <strong>Условие:</strong> Программа получает числа, нужно вывести <strong>количество чисел, оканчивающихся на 3</strong>. Всегда есть хотя бы одно.
+            </div>
+            <div class="code-block">
+                <pre>a = []
+n = int(input())
+for i in range(n):
+    num = int(input())
+    if num % 10 == 3:
+        a.append(num)
+
+count_end3 = len(a)
+print(count_end3)</pre>
+            </div>
+            <div class="output-area">
+                <div class="output-label">🧪 Проверка на окончание 3</div>
+                <div class="input-sim">
+                    <input type="number" id="task2_count" placeholder="Кол-во чисел" value="5" style="width:100px;">
+                    <input type="text" id="task2_numbers" placeholder="Числа через пробел" value="13 23 45 33 73">
+                </div>
+                <button id="runTask2Btn">🔍 Подсчитать оканчивающиеся на 3</button>
+                <div class="output-result" id="task2Result">Количество чисел, оканчивающихся на 3: —</div>
+            </div>
+        </div>
+
+        <!-- ЗАДАЧА 3: три максимальных и два минимальных (из всего списка, но в условии отдельно) -->
+        <div class="task-card">
+            <div class="card-header">
+                <span class="task-title">🏆 Задача 3. 3 max и 2 min</span>
+                <div class="task-theory">📘 Теория: сортировка или nlargest/nsmallest. Список a содержит все числа.</div>
+            </div>
+            <div class="task-desc">
+                <strong>Условие:</strong> Вывести 3 максимальных и 2 минимальных элемента последовательности (в порядке убывания/возрастания). Гарантируется минимум 5 чисел.
+            </div>
+            <div class="code-block">
+                <pre>a = []
+n = int(input())
+for _ in range(n):
+    a.append(int(input()))
+
+a_sorted = sorted(a)
+two_min = a_sorted[:2]
+three_max = a_sorted[-3:][::-1]  # в порядке убывания
+
+print("3 максимальных:", three_max)
+print("2 минимальных:", two_min)</pre>
+            </div>
+            <div class="output-area">
+                <div class="output-label">📊 3 максимальных и 2 минимальных</div>
+                <div class="input-sim">
+                    <input type="text" id="task3_numbers" placeholder="Числа через пробел (5+ чисел)" value="45 12 78 90 23 99 56 11">
+                </div>
+                <button id="runTask3Btn">✨ Показать экстремумы</button>
+                <div class="output-result" id="task3Result">3 max: — | 2 min: —</div>
+            </div>
+        </div>
+
+        <!-- ЗАДАЧА 4: Камера (средняя скорость + YES/NO если хотя бы 2 авто <= 40) -->
+        <div class="task-card">
+            <div class="card-header">
+                <span class="task-title">🚗 Задача 4. Камера наблюдения</span>
+                <div class="task-theory">📘 Теория: среднее арифметическое, условие на количество автомобилей со скоростью ≤ 40.</div>
+            </div>
+            <div class="task-desc">
+                <strong>Условие:</strong> Средняя скорость всех авто (с точностью 0.1) + вывести YES если не менее двух авто двигались со скоростью ≤ 40 км/ч, иначе NO.
+            </div>
+            <div class="code-block">
+                <pre>a = []
+n = int(input())
+for _ in range(n):
+    a.append(int(input()))
+
+avg = sum(a) / len(a)
+count_slow = len([x for x in a if x <= 40])
+verdict = "YES" if count_slow >= 2 else "NO"
+print(f"{avg:.1f}\n{verdict}")</pre>
+            </div>
+            <div class="output-area">
+                <div class="output-label">📡 Симулятор камеры</div>
+                <div class="input-sim">
+                    <input type="text" id="task4_numbers" placeholder="Скорости через пробел" value="74 69 63 96">
+                </div>
+                <button id="runTask4Btn">📈 Рассчитать</button>
+                <div class="output-result" id="task4Result">Средняя скорость: — | Вердикт: —</div>
+            </div>
+        </div>
+
+        <!-- ЗАДАЧА 5: Сумма чисел, чья запись в 7-ричной системе оканчивается на 1 -->
+        <div class="task-card">
+            <div class="card-header">
+                <span class="task-title">🔢 Задача 5. Семиричная система → окончание на '1'</span>
+                <div class="task-theory">📘 Теория: перевод в 7-ричную систему: остаток от деления на 7 даёт последнюю цифру. Условие: num % 7 == 1.</div>
+            </div>
+            <div class="task-desc">
+                <strong>Условие:</strong> Найти сумму элементов последовательности, запись которых в 7-ричной системе счисления оканчивается на цифру 1.
+            </div>
+            <div class="code-block">
+                <pre>a = []
+n = int(input())
+for _ in range(n):
+    val = int(input())
+    if val % 7 == 1:   # последняя цифра в 7-ричной = 1
+        a.append(val)
+
+result_sum = sum(a)
+print(result_sum)</pre>
+            </div>
+            <div class="output-area">
+                <div class="output-label">🧮 Сумма чисел с окончанием на 1 (в 7-ричной)</div>
+                <div class="input-sim">
+                    <input type="text" id="task5_numbers" placeholder="Числа через пробел" value="15 13 11 8 23">
+                </div>
+                <button id="runTask5Btn">➕ Найти сумму</button>
+                <div class="output-result" id="task5Result">Сумма = —</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        🌟 Все задачи реализованы с единым подходом: пустой список <strong>a = []</strong>, затем добавление по условию, готовые функции sum/max/len/sorted. Идеально для подготовки к ОГЭ!
+    </footer>
+</div>
+
+<script>
+    // универсальная функция для парсинга чисел из строки
+    function parseNumbers(inputStr) {
+        return inputStr.trim().split(/\s+/).map(Number).filter(v => !isNaN(v));
+    }
+
+    // ЗАДАЧА 1 (макс, сумма, кол-во, среднее кратных 5)
+    function runTask1() {
+        let count = parseInt(document.getElementById('task1_count').value);
+        let numbersStr = document.getElementById('task1_numbers').value;
+        let allNums = parseNumbers(numbersStr);
+        if (allNums.length !== count) {
+            // но если пользователь ввел другое количество - подстроимся или предупредим
+            if(allNums.length > 0) count = allNums.length;
+        }
+        let a = [];
+        for(let val of allNums.slice(0, count)) {
+            if(val % 5 === 0) a.push(val);
+        }
+        if(a.length === 0) {
+            document.getElementById('task1Result').innerHTML = "❌ Нет чисел, кратных 5! (по условию должно быть хотя бы одно)";
+            document.getElementById('task1Extra').innerHTML = "Минимальное кратное 5: —";
+            return;
+        }
+        let maxVal = Math.max(...a);
+        let summa = a.reduce((s,v)=>s+v,0);
+        let cnt = a.length;
+        let avg = summa / cnt;
+        let minVal = Math.min(...a);
+        document.getElementById('task1Result').innerHTML = `✅ Максимум: ${maxVal} | Сумма: ${summa} | Кол-во: ${cnt} | Среднее: ${avg.toFixed(2)}`;
+        document.getElementById('task1Extra').innerHTML = `📌 Минимальное кратное 5: ${minVal}`;
+    }
+
+    // ЗАДАЧА 2 (оканчиваются на 3)
+    function runTask2() {
+        let count = parseInt(document.getElementById('task2_count').value);
+        let numbersStr = document.getElementById('task2_numbers').value;
+        let allNums = parseNumbers(numbersStr);
+        if(allNums.length !== count && allNums.length > 0) count = allNums.length;
+        let a = [];
+        for(let v of allNums.slice(0, count)) {
+            if(v % 10 === 3) a.push(v);
+        }
+        let resultCount = a.length;
+        document.getElementById('task2Result').innerHTML = `🔢 Количество чисел, оканчивающихся на 3: ${resultCount}`;
+    }
+
+    // ЗАДАЧА 3 (три максимальных и два минимальных)
+    function runTask3() {
+        let numbersStr = document.getElementById('task3_numbers').value;
+        let allNums = parseNumbers(numbersStr);
+        if(allNums.length < 5) {
+            document.getElementById('task3Result').innerHTML = "⚠️ Введите хотя бы 5 чисел для корректного вывода 3 max и 2 min.";
+            return;
+        }
+        let a = [...allNums];
+        let sorted = [...a].sort((x,y)=>x-y);
+        let twoMin = sorted.slice(0,2);
+        let threeMax = sorted.slice(-3).reverse(); // убывание
+        document.getElementById('task3Result').innerHTML = `🏅 3 максимальных: ${threeMax.join(', ')} | 🥈 2 минимальных: ${twoMin.join(', ')}`;
+    }
+
+    // ЗАДАЧА 4 (камера)
+    function runTask4() {
+        let numbersStr = document.getElementById('task4_numbers').value;
+        let speeds = parseNumbers(numbersStr);
+        if(speeds.length === 0) {
+            document.getElementById('task4Result').innerHTML = "Введите скорости!";
+            return;
+        }
+        let a = [...speeds];
+        let avg = a.reduce((s,v)=>s+v,0) / a.length;
+        let slowCount = a.filter(v => v <= 40).length;
+        let verdict = slowCount >= 2 ? "YES" : "NO";
+        document.getElementById('task4Result').innerHTML = `🚦 Средняя скорость: ${avg.toFixed(1)} км/ч | ${verdict}`;
+    }
+
+    // ЗАДАЧА 5 (сумма чисел, у которых остаток от деления на 7 = 1)
+    function runTask5() {
+        let numbersStr = document.getElementById('task5_numbers').value;
+        let allNums = parseNumbers(numbersStr);
+        let a = [];
+        for(let val of allNums) {
+            if(val % 7 === 1) a.push(val);
+        }
+        let total = a.reduce((s,v)=>s+v,0);
+        document.getElementById('task5Result').innerHTML = `💎 Сумма элементов (7-ричная оканчивается на 1): ${total}`;
+    }
+
+    // Добавляем слушатели
+    document.getElementById('runTask1Btn').addEventListener('click', runTask1);
+    document.getElementById('runTask2Btn').addEventListener('click', runTask2);
+    document.getElementById('runTask3Btn').addEventListener('click', runTask3);
+    document.getElementById('runTask4Btn').addEventListener('click', runTask4);
+    document.getElementById('runTask5Btn').addEventListener('click', runTask5);
+
+    // Инициализация примеров
+    window.onload = () => {
+        runTask1();
+        runTask2();
+        runTask3();
+        runTask4();
+        runTask5();
+    };
+</script>
+</body>
+</html>
